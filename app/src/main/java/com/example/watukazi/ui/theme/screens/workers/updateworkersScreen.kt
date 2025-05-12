@@ -27,7 +27,7 @@ import com.watukazi.app.viewmodel.WorkerViewModel
 fun UpdateWorkerScreen(
     navController: NavController,
     workerId: String,
-    workerViewModel: WorkerViewModel<Any?> = WorkerViewModel() // Ideally use hiltViewModel()
+    workerViewModel: WorkerViewModel = WorkerViewModel() // Ideally use hiltViewModel()
 ) {
     val context = LocalContext.current
     val imageUri = rememberSaveable { mutableStateOf<Uri?>(null) }

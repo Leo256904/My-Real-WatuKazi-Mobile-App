@@ -34,7 +34,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WorkerViewModel<T> : ViewModel() {
+class WorkerViewModel : ViewModel() {
     private val database = FirebaseDatabase.getInstance().reference.child("Workers")
 
     private fun getImgurService(): ImgurApiService {
@@ -139,7 +139,6 @@ class WorkerViewModel<T> : ViewModel() {
         val consumerSecret = "9b2197c3343b8b4e6f3f31e7b20e2d95"
         val passkey = "bfb279f9aa9bdbcf4b65f26c72d1b7b4f41b6b22f6b7f72d38b5a4fc6f2c3b2c"
 
-
         val basicAuth = "Basic " + Base64.encodeToString(
             "$consumerKey:$consumerSecret".toByteArray(), Base64.NO_WRAP
         )
@@ -202,16 +201,16 @@ class WorkerViewModel<T> : ViewModel() {
         navController: NavController,
         workername: String,
         workerskill: String,
-        workerphonenumber: String,
         workerrate: String,
+        workerphonenumber: String,
         desc: String,
         workerId: String
     ) {
         val updatedWorker = mapOf(
             "workername" to workername,
             "workerskill" to workerskill,
-            "workerphonenumber" to workerphonenumber,
             "workerrate" to workerrate,
+            "workerphonenumber" to workerphonenumber,
             "desc" to desc
         )
 

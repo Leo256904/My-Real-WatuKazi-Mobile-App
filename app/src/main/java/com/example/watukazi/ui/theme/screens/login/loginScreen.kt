@@ -1,7 +1,6 @@
 package com.example.watukazi.ui.theme.screens.login
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,17 +8,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,8 +32,9 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
     val context = LocalContext.current
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    val purpleColor = Color(0xFFBF00FF) // Bright purple color
-    val passwordVisible by remember { mutableStateOf(false) }
+    var passwordVisible by remember { mutableStateOf(false) }
+
+    val purpleColor = Color(0xFFBF00FF)
 
     Box(
         modifier = Modifier
@@ -85,137 +76,63 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                // Google button
+                // Google
                 Box(
                     modifier = Modifier
                         .weight(1f)
                         .height(56.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(Color(0xFF1A1A1A))
-                        .border(
-                            width = 1.dp,
-                            color = Color(0xFF333333),
-                            shape = RoundedCornerShape(12.dp)
-                        ),
+                        .background(Color(0xFF1A1A1A)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = "G",
-                        color = Color.White,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+                    Text("G", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 }
 
-                // Apple button
+                // Apple
                 Box(
                     modifier = Modifier
                         .weight(1f)
                         .height(56.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(Color(0xFF1A1A1A))
-                        .border(
-                            width = 1.dp,
-                            color = Color(0xFF333333),
-                            shape = RoundedCornerShape(12.dp)
-                        ),
+                        .background(Color(0xFF1A1A1A)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = "􀣺", // Apple logo symbol
-                        color = Color.White,
-                        fontSize = 20.sp
-                    )
+                    Text("􀣺", color = Color.White, fontSize = 20.sp)
                 }
             }
 
-            // Email field
-            Text(
-                text = "Email",
-                color = Color.White,
-                fontSize = 14.sp,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
+            Spacer(modifier = Modifier.height(24.dp))
 
-            Box(
+            // Email
+            Text(text = "Email", color = Color.White, fontSize = 14.sp)
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                label = { Text("Enter your email") },
+                placeholder = { Text("Please enter your email") },
+                leadingIcon = {
+                    Icon(imageVector = Icons.Default.Email, contentDescription = "Email", tint = purpleColor)
+                },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color(0xFF1A1A1A))
-                    .border(
-                        width = 1.dp,
-                        color = Color(0xFF333333),
-                        shape = RoundedCornerShape(12.dp)
-                    )
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    OutlinedTextField(
-                        value = email,
-                        onValueChange = { email = it },
-                        label = { Text(text = "Enter your email") },
-                        placeholder = { Text(text = "Please enter your email") },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                    Icon(
-                        imageVector = Icons.Default.Email,
-                        contentDescription = "Validated",
-                        tint = purpleColor,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Password field
-            Text(
-                text = "Password",
-                color = Color.White,
-                fontSize = 14.sp,
-                modifier = Modifier.padding(bottom = 8.dp)
+                    .padding(vertical = 8.dp)
             )
 
-            Box(
+            // Password
+            Text(text = "Password", color = Color.White, fontSize = 14.sp)
+            OutlinedTextField(
+                value = password,
+                onValueChange = { password = it },
+                label = { Text("Enter your password") },
+                placeholder = { Text("Please enter your password") },
+                leadingIcon = {
+                    Icon(imageVector = Icons.Default.Lock, contentDescription = "Password", tint = purpleColor)
+                },
+                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color(0xFF1A1A1A))
-                    .border(
-                        width = 1.dp,
-                        color = Color(0xFF333333),
-                        shape = RoundedCornerShape(12.dp)
-                    )
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    OutlinedTextField(
-                        value = password,
-                        onValueChange = { password = it },
-                        label = { Text(text = "Enter your password") },
-                        placeholder = { Text(text = "Please enter your password") },
-                        modifier = Modifier.fillMaxWidth(),
-                        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
-                    )
-
-                    Icon(
-                        imageVector = Icons.Default.Lock,
-                        contentDescription = "Validated",
-                        tint = purpleColor,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
+                    .padding(vertical = 8.dp)
+            )
 
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -230,24 +147,20 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = purpleColor)
             ) {
-                Text(
-                    text = "Log in",
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold
-                )
+                Text(text = "Log in", color = Color.White, fontWeight = FontWeight.Bold)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Sign up text
+            // Sign-up redirect
             Text(
                 text = "Don't have an account? Sign up",
                 color = Color.White,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.clickable {
-                    navController.navigate(ROUTE_REGISTER)
-                }
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .clickable { navController.navigate(ROUTE_REGISTER) }
             )
         }
     }
@@ -258,5 +171,3 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
 fun LoginScreenPreview() {
     LoginScreen(rememberNavController(), viewModel())
 }
-
-

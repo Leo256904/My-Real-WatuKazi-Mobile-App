@@ -43,7 +43,7 @@ fun AddWorkersScreen(navController: NavController) {
     var workerrate by remember { mutableStateOf("") }
     var workerphonenumber by remember { mutableStateOf("") }
     var desc by remember { mutableStateOf("") }
-    val workerViewModel: WorkerViewModel<Any?> = viewModel()
+    val workerViewModel: WorkerViewModel = viewModel()
     val scrollState = rememberScrollState()
 
     Column(
@@ -151,8 +151,8 @@ fun AddWorkersScreen(navController: NavController) {
                             context,
                             workername,
                             workerskill,
-                            workerphonenumber,
                             workerrate,
+                            workerphonenumber,
                             desc,
                             navController // ✅ Navigation only happens from inside ViewModel
                         )
